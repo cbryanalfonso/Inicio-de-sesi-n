@@ -12,6 +12,8 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import HomeScreen from './HomeScreen'
 import fotos from './fotos'
+import contador from './contador';
+import imc from './imc';
 
 
 const Tab = createBottomTabNavigator();
@@ -25,8 +27,12 @@ const screenOptions = (route, color)=>{
         case "fotos":
             iconName = "image"
             break;
-    
-       
+        case "contador":
+            iconName = "numeric"
+            break;
+        case "imc":
+            iconName = "human-male-boy"
+            break;
     }
     return(
         <Icon
@@ -67,9 +73,7 @@ export default class HomeScene extends Component {
                         {
                            headerShown:false,
                         }
-
-                    }
-                    
+                    } 
                 >
                     
 
@@ -81,12 +85,23 @@ export default class HomeScene extends Component {
                         {
                             headerShown: false,
                         }
-                    }
-                    
+                    }  
                 >
-                    
-
-                </Tab.Screen>
+                   </Tab.Screen>
+                   <Tab.Screen
+                    name = "contador"
+                    component={contador}
+                    options={{headerShown:false}}
+                   >
+                       
+                   </Tab.Screen>
+                   <Tab.Screen
+                    name = "imc"
+                    component={imc}
+                    options={{headerShown:false}}
+                   >
+                       
+                   </Tab.Screen>
             </Tab.Navigator>
         );
     }
