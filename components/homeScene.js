@@ -7,8 +7,39 @@ import {
     ScrollView,
     Image
 } from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
+import HomeScreen from './HomeScreen'
+import fotos from './fotos'
+
+
+const Tab = createBottomTabNavigator();
+
+const screenOptions = (route, color)=>{
+    let iconName
+    switch (route.name) {
+        case "Home":
+            iconName= "home"
+            break;
+        case "fotos":
+            iconName = "image"
+            break;
+    
+       
+    }
+    return(
+        <Icon
+            type="material-community"
+            name={iconName}
+            size={22}
+            color={color}
+        ></Icon>
+    );
+}
 export default class HomeScene extends Component {
+
+    
     backToLogin = () => {
      const { goBack } = this.props.navigation; // Obtener el método de navegación goBack
     goBack();  // Regresar a la interfaz anterior
@@ -16,7 +47,66 @@ export default class HomeScene extends Component {
 
     render(){
         return(
-            <ScrollView
+            <Tab.Navigator
+                initialRouteName ="Home"
+                screenOptions={
+                    ({route})=>({
+                        tabBarIcon: ({color})=> screenOptions(route,color)
+                    })
+                   /* {
+                        route
+                       // tabBarInactiveTintColor:"#442484"
+                        
+                    }*/
+                }
+            >
+                <Tab.Screen
+                    name ="Home"
+                    component={HomeScreen}
+                    options={
+                        {
+                           headerShown:false,
+                        }
+
+                    }
+                    
+                >
+                    
+
+                </Tab.Screen>
+                <Tab.Screen
+                    name ="fotos"
+                    component={fotos}
+                    options={
+                        {
+                            headerShown: false,
+                        }
+                    }
+                    
+                >
+                    
+
+                </Tab.Screen>
+            </Tab.Navigator>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    content: {
+        fontSize: 40,
+    },
+});
+
+
+/*
+<ScrollView
             
             >
               
@@ -36,18 +126,5 @@ export default class HomeScene extends Component {
                 <Button onPress={this.backToLogin} title="Haga click"></Button>
 
             </ScrollView>
-        );
-    }
-}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    content: {
-        fontSize: 40,
-    },
-});
+*/
